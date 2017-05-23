@@ -1,7 +1,10 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <div id="timer"></div>
+  <div class="hello row">
+    <div class="col m4"></div>
+    <div class="col m4">
+      <div id="timer"></div>
+    </div>
+    <div class="col m4"></div>
   </div>
 </template>
 
@@ -10,33 +13,32 @@ var ProgressBar = require('progressbar.js')
 export default {
   name: 'hello',
   data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
+    return {}
   },
   mounted: function () {
+    var durationMinutes = 25
     var bar = new ProgressBar.Circle('#timer', {
-      color: '#aaa',
+      color: '#ffffff',
       // This has to be the same size as the maximum width to
       // prevent clipping
       strokeWidth: 4,
       trailWidth: 1,
       easing: 'linear',
-      duration: (60000 * 25),
+      duration: (60000 * durationMinutes),
       text: {
         autoStyleContainer: false
       },
-      from: { color: '#aaa', width: 1 },
-      to: { color: '#333', width: 4 },
+      from: { color: '#1ada5b', width: 1 },
+      to: { color: '#000', width: 4 },
       // Set default step function for all animate calls
       step: function (state, circle) {
         circle.path.setAttribute('stroke', state.color)
         circle.path.setAttribute('stroke-width', state.width)
 
         var secondsPassed = Math.round((circle.value() * 14.4) * 100)
-        var secondsLeft = 1500 - secondsPassed
+        var secondsLeft = (durationMinutes * 60) - secondsPassed
         var minutes = Math.floor(secondsLeft / 60)
-        var seconds = secondsLeft - minutes * 60
+        var seconds = secondsLeft - (minutes * 60)
         if (secondsPassed === 0) {
           circle.setText('')
         } else {
@@ -52,24 +54,28 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
+body {
+  min-height: 100%;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  background: url('../assets/washoe_valley.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 #timer {
   margin: 20px;
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
   position: relative;
 }
 h1, h2 {
   font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
 }
 </style>
