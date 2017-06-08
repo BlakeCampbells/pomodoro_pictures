@@ -47,7 +47,10 @@ export default {
         play: false,
         replay: false
       },
-      durationMinutes: 25,
+      duration: {
+        work: 25,
+        break: 5
+      },
       circleChart: {}
     }
   },
@@ -64,7 +67,7 @@ export default {
         strokeWidth: 4,
         trailWidth: 1,
         easing: 'linear',
-        duration: (60000 * self.durationMinutes),
+        duration: (60000 * self.duration.work),
         text: {
           autoStyleContainer: false
         },
@@ -81,7 +84,7 @@ export default {
           var seconds = 0
           if (circle && circle._progressPath) {
             secondsPassed = Math.round((circle._progressPath._opts.duration * circle.value()) / 1000)
-            secondsLeft = (self.durationMinutes * 60) - secondsPassed
+            secondsLeft = (self.duration.work * 60) - secondsPassed
             minutes = Math.floor(secondsLeft / 60)
             seconds = secondsLeft - (minutes * 60)
           }
