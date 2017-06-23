@@ -13,6 +13,38 @@
             <i class="material-icons">play_arrow</i>
           </a>
         </span>
+        <span>
+          <div class="fixed-action-btn vertical click-to-toggle">
+            <a v-on:click="" class="btn-floating btn-large waves-effect waves-light blue lighten-1">
+              <i class="material-icons">mode_edit</i>
+            </a>
+            <ul>
+              <li>
+                <a v-bind:class="{disabled: duration.work <= 10}" class="btn-floating red" v-on:click="duration.work = duration.work - 10">
+                  -10
+                </a>
+              </li>
+              <li>
+                <a v-bind:class="{disabled: duration.work <= 5}" class="btn-floating red lighten-1" v-on:click="duration.work = duration.work - 5">
+                  -5
+                </a>
+              </li>
+              <li>
+                <a v-bind:class="{disabled: duration.work > 85}" class="btn-floating green lighten-1" v-on:click="duration.work = duration.work + 5">
+                  +5
+                </a>
+              </li>
+              <li>
+                <a v-bind:class="{disabled: duration.work > 80}" class="btn-floating green" v-on:click="duration.work = duration.work + 5">
+                  +10
+                </a>
+              </li>
+              <li>
+                <a class="btn-floating blue">{{duration.work}}</a>
+              </li>
+            </ul>
+          </div>
+        </span>
         <span v-if="show.stop">
           <a v-on:click="stop()" class="btn-floating btn-large waves-effect waves-light blue lighten-1">
             <i class="material-icons">stop</i>
@@ -48,8 +80,7 @@ export default {
         replay: false
       },
       duration: {
-        work: 25,
-        break: 5
+        work: 25
       },
       circleChart: {}
     }
